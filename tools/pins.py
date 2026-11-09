@@ -134,6 +134,8 @@ def stats(a):
     """Metricool rows (Pinterest posts connector) saved as JSON list of objects that have at least
     a timestamp and impressions/saves/pinClicks/outboundClicks. Joined to pins.json on scheduled time (±20 min)."""
     rows = json.load(open(a.metricool))
+    if isinstance(rows, dict):  # accept {"data": [...]} too
+        rows = rows.get("data") or rows.get("rows") or next((v for v in rows.values() if isinstance(v, list)), [])
     pins = [p for p in load(PINS, []) if p["scheduled"]]
     for p in pins:
         p["_t"] = dt.datetime.fromisoformat(p["scheduled"])
@@ -149,7 +151,8 @@ def stats(a):
         if not best or abs((best["_t"] - t).total_seconds()) > 1200:
             continue
         matched += 1
-        m = {k: float(r.get(k, 0) or 0) for k in ("impressions", "saves", "pinClicks", "outboundClicks")}
+        alias = {"impressions": "PIPO08", "saves": "PIPO09", "pinClicks": "PIPO10", "outboundClicks": "PIPO11"}
+        m = {k: float(r.get(k, r.get(alias[k], 0)) or 0) for k in alias}
         for dim in ("slug", "motif", "room", "style", "caption"):
             key = (dim, best[dim])
             s = agg.setdefault(key, {"pins": 0, "impressions": 0, "saves": 0, "pinClicks": 0, "outboundClicks": 0})
