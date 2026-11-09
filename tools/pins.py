@@ -50,6 +50,17 @@ CAPTIONS = {
 }
 
 
+def pick_board(motif_text=""):
+    st = strategy()
+    boards = st.get("boards") or {BOARD: "Printable Wall Art"}
+    w = st.get("board_weight", {})
+    opts = [b for b in boards if w.get(b, 1) > 0]
+    # winter motifs also go to the Winter Wall Art board
+    if "winter" in motif_text.lower():
+        opts += [b for b, n in boards.items() if "winter" in n.lower()]
+    return random.choice(opts) if opts else BOARD
+
+
 def pick_caption():
     st = strategy()
     opts = [c for c in CAPTIONS if st["caption_weight"].get(c, 1) > 0]
@@ -78,7 +89,7 @@ def make(a, rooms=None):
         fn = f"{today}-{a.slug}-{a.motif}-{room[:3]}-{cap}.jpg"
         compose(room, a.art, os.path.join(ROOT, "pins", fn), t, s)
         pins.append({"file": fn, "slug": a.slug, "motif": a.motif, "room": room, "style": ROOMS[room].get("style"),
-                     "caption": cap, "title": a.title, "desc": a.desc, "alt": a.alt, "board": BOARD,
+                     "caption": cap, "title": a.title, "desc": a.desc, "alt": a.alt, "board": pick_board(a.slug + " " + a.title),
                      "link": link, "status": "klar" if link else "vantar-lank", "scheduled": "", "metricool_id": ""})
         print(fn)
     save(PINS, pins)

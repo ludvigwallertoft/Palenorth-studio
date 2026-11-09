@@ -6,5 +6,13 @@
  },
  "more_of": [],
  "stop": [],
- "notes": "Startläge 2026-11-09: alla rum och båda bildtexterna testas lika. Nora uppdaterar varje måndag från Metricool-statistiken."
+ "notes": "Startläge 2026-11-09: alla rum och båda bildtexterna testas lika. Nora uppdaterar varje måndag från Metricool-statistiken.",
+ "boards": {
+  "243124148573324395": "Printable Wall Art",
+  "243124148573326207": "Scandinavian Living Room",
+  "243124148573326210": "Small Apartment Decor",
+  "243124148573326211": "Small Bedroom Inspiration",
+  "243124148573326212": "Winter Wall Art"
+ },
+ "board_weight": {}
 }
