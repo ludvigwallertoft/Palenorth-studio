@@ -142,13 +142,22 @@ def stats(a):
     agg = {}
     matched = 0
     for r in rows:
-        ts = str(r.get("timestamp") or r.get("date") or r.get("PIPO02") or "")[:19].replace(" ", "T")
+        if isinstance(r, list):  # Metricool returns positional rows in the order requested:
+            # PIPO02 (YYYYMMDDHHMMSS), PIPO03 title, PIPO08 impressions, PIPO09 saves, PIPO10 pin clicks, PIPO11 outbound
+            r = dict(zip(["timestamp", "title", "impressions", "saves", "pinClicks", "outboundClicks"], r))
+        ts = str(r.get("timestamp") or r.get("PIPO02") or "")
         try:
-            t = dt.datetime.fromisoformat(ts)
+            t = dt.datetime.strptime(ts[:14], "%Y%m%d%H%M%S") if ts[:14].isdigit() else dt.datetime.fromisoformat(ts[:19].replace(" ", "T"))
         except ValueError:
             continue
-        best = min(pins, key=lambda p: abs((p["_t"] - t).total_seconds()), default=None)
-        if not best or abs((best["_t"] - t).total_seconds()) > 1200:
+        best, gap = None, 1e9
+        for off in (0, 1, -1, 2):  # Metricool may report UTC; we store Stockholm time
+            tt = t + dt.timedelta(hours=off)
+            for p in pins:
+                g = abs((p["_t"] - tt).total_seconds())
+                if g < gap:
+                    best, gap = p, g
+        if not best or gap > 1200:
             continue
         matched += 1
         alias = {"impressions": "PIPO08", "saves": "PIPO09", "pinClicks": "PIPO10", "outboundClicks": "PIPO11"}
