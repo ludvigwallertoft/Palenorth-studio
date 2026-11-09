@@ -1,0 +1,62 @@
+{
+ "r02-8534228.jpg": {
+  "style": "light-oak",
+  "mood": "bright minimal",
+  "foreground": false,
+  "source": "https://www.pexels.com/photo/8534228/",
+  "frame": [
+   397,
+   646,
+   1210,
+   1743
+  ]
+ },
+ "r04-8490175.jpg": {
+  "style": "black-frame-floor",
+  "mood": "cozy living room, plant and throw",
+  "foreground": false,
+  "source": "https://www.pexels.com/photo/8490175/",
+  "frame": [
+   532,
+   882,
+   1065,
+   1622
+  ]
+ },
+ "r07-12486418.jpg": {
+  "style": "black-frame-linen",
+  "mood": "warm linen, dried flower",
+  "foreground": false,
+  "source": "https://www.pexels.com/photo/12486418/",
+  "frame": [
+   431,
+   693,
+   1217,
+   1743
+  ]
+ },
+ "r08-12486417.jpg": {
+  "style": "black-frame-linen",
+  "mood": "warm linen, bunny tails",
+  "foreground": false,
+  "source": "https://www.pexels.com/photo/12486417/",
+  "frame": [
+   421,
+   692,
+   1238,
+   1794
+  ]
+ },
+ "r09-5978718.jpg": {
+  "style": "light-oak-vase",
+  "mood": "bright, dried protea",
+  "foreground": true,
+  "source": "https://www.pexels.com/photo/5978718/",
+  "frame": [
+   281,
+   1049,
+   953,
+   1955
+  ]
+ }
+}
