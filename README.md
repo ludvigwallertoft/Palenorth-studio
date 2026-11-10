@@ -9,3 +9,17 @@ Shared library for the LW AB agents (Tove, Pia, Nora). No print files are ever s
 - `tools/pins.py` – the pin pipeline: `make` (Tove), `link` + `next` + `mark` (Pia, scheduling via Metricool), `stats` + `variants` (Nora/Pia).
 - `pins/pins.json` – every pin: product, motif, room, style, caption type, texts, link, status, scheduled time, Metricool id.
 - `pins/strategy.json` – Nora's steering: room/caption weights (0 = stop), `more_of` (products to make more pins of), `stop` (products not to pin any more).
+
+## Pinterest SEO (obligatoriskt för alla pins, från 2026-11-10)
+Pinterest är en sökmotor. Det är sökorden som gör att folk hittar pinsen, inte följare.
+- **Titel** (`--title`, max 100 tecken): det viktigaste sökordet först, så som folk skriver i Pinterests sökruta.
+  Exempel: "Scandinavian Christmas Wall Art Printable – Minimalist Holiday Print".
+- **Beskrivning** (`--desc`, max ~400 tecken): naturliga meningar med 2–3 sökord (t.ex. "christmas wall art printable",
+  "scandinavian christmas decor", "minimalist holiday print", "winter wall art"), vad köparen får och att det är en digital fil.
+  Skriv INGA hashtaggar själv: `pins.py next` lägger automatiskt till 3–5 specifika hashtaggar sist.
+- **Alt-text** (`--alt`): en mening som beskriver bilden och innehåller sökordet.
+- **Tavlor**: `pins.py next` väljer tavla själv efter säsong och motiv, och lägger aldrig samma tavla två gånger i rad.
+  Jultavlorna (Christmas Wall Art Printables, Cozy Christmas Home Decor) används 1 nov–24 dec; Winter Wall Art jan–mars.
+  Använd `boardId` och `text` från `next` oförändrade i Metricool. Skicka gärna `--board` till `mark`.
+- **Säsong**: julprodukter måste vara ute senast i mitten av november. Pinterest behöver 2–4 veckor
+  innan en pin börjar synas i sök.
