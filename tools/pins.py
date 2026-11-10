@@ -10,7 +10,8 @@ Commands
   python3 tools/pins.py make  --slug SLUG --art PREVIEW.jpg --motif NAME --title T --sub S --desc D --alt A [--n 5]
   python3 tools/pins.py link  --slug SLUG --url ETSY_LISTING_URL
   python3 tools/pins.py next  [--n 6]        # klar pins + suggested times (max 3/day, 08:41/14:23/20:37 Stockholm)
-  python3 tools/pins.py mark  --file F --id METRICOOL_ID --time 2026-11-20T08:41:00
+  python3 tools/pins.py mark  --file F --id METRICOOL_ID --time 2026-11-20T08:41:00 --board BOARD_ID
+  `next` already returns SEO text (keywords + 3-5 hashtags at the end) and a season-aware board: use them as-is.
   python3 tools/pins.py stats --metricool STATS.json   # join Metricool pin stats -> per product/motif/room/caption
   python3 tools/pins.py variants --slug SLUG --n 3     # extra pins of a winning product in rooms/captions not used yet
 """
@@ -59,6 +60,86 @@ def pick_board(motif_text=""):
     if "winter" in motif_text.lower():
         opts += [b for b, n in boards.items() if "winter" in n.lower()]
     return random.choice(opts) if opts else BOARD
+
+
+# --- Pinterest SEO -----------------------------------------------------------
+# Pinterest is a search engine: keywords in title, description, alt text and board
+# name do most of the work. 3-5 specific hashtags go at the END of the description.
+TAGS = [  # (trigger words, hashtag) - first matches win, max 5 per pin
+    (("christmas", "xmas", "holiday", "noel", "santa"), "#christmasdecor"),
+    (("christmas", "xmas", "holiday"), "#christmasprintables"),
+    (("winter", "snow", "spruce", "birch", "cabin"), "#winterdecor"),
+    (("line art", "line drawing", "minimalist"), "#minimalistwallart"),
+    (("nordic", "scandinavian", "cabin", "birch", "spruce"), "#scandinaviandecor"),
+    (("funny", "playful", "humor", "quote", "cat", "dog", "coffee"), "#funnywallart"),
+    (("kitchen", "coffee", "wine"), "#kitchenwallart"),
+    (("bathroom",), "#bathroomwallart"),
+    (("bedroom",), "#bedroomdecor"),
+]
+BASE_TAGS = ["#printablewallart", "#digitaldownload"]
+
+
+def hashtags(text, n=5):
+    t = text.lower()
+    out = []
+    for words, tag in TAGS:
+        if tag not in out and any(w in t for w in words):
+            out.append(tag)
+    for tag in BASE_TAGS:
+        if tag not in out:
+            out.append(tag)
+    return out[:n]
+
+
+def seo_text(p, board=""):
+    """Keyword-rich description + 3-5 hashtags at the end (max 500 chars)."""
+    desc = p["desc"].strip()
+    if "printable" not in desc.lower():
+        desc += " Printable wall art."
+    bname = strategy().get("boards", {}).get(board, "").lower()
+    if "christmas" in bname and "christmas" not in desc.lower():
+        desc += " A calm touch of cozy Scandinavian Christmas decor, and an easy last-minute holiday gift."
+        p = dict(p, desc=desc + " christmas")
+    tags = " ".join(hashtags(" ".join([p["title"], p["desc"], p.get("motif", ""), p.get("slug", "")])))
+    return (desc[: 499 - len(tags)].rstrip() + "\n\n" + tags)[:500]
+
+
+def christmas_season(d=None):
+    d = d or dt.date.today()
+    return (d.month == 11) or (d.month == 12 and d.day <= 24)
+
+
+def pick_board_for(p, recent=()):
+    """Choose a board when the pin is scheduled: matching season boards get priority,
+    and the same board is not used twice in a row."""
+    st = strategy()
+    boards = st.get("boards") or {BOARD: "Printable Wall Art"}
+    w = st.get("board_weight", {})
+    text = " ".join([p["title"], p["desc"], p.get("motif", ""), p.get("slug", "")]).lower()
+    opts = []
+    for b, name in boards.items():
+        n = name.lower()
+        if w.get(b, 1) <= 0:
+            continue
+        if "christmas" in n and not christmas_season():
+            continue
+        weight = w.get(b, 1)
+        if "christmas" in n and any(k in text for k in ("christmas", "xmas", "holiday")):
+            weight *= 4
+        elif "christmas" in n and any(k in text for k in ("winter", "snow", "spruce", "cabin", "birch")):
+            weight *= 1.5
+        elif "christmas" in n:
+            continue
+        if "winter" in n and any(k in text for k in ("winter", "snow", "spruce", "cabin", "birch")):
+            weight *= 2
+        if "bedroom" in n and "bedroom" not in text and "r0" not in p.get("room", ""):
+            weight *= 0.8
+        if recent and b == recent[-1]:
+            weight *= 0.1
+        opts.append((b, weight))
+    if not opts:
+        return BOARD
+    return random.choices([b for b, _ in opts], weights=[x for _, x in opts])[0]
 
 
 def pick_caption():
@@ -127,10 +208,15 @@ def nxt(a):
     # interleave products so the same print is not shown twice in a row
     ready.sort(key=lambda p: (sum(1 for q in pins if q["slug"] == p["slug"] and q["status"] == "schemalagd"), p["file"]))
     times = next_slots(pins, min(a.n, len(ready)))
+    recent = [q["board"] for q in sorted(pins, key=lambda q: q["scheduled"] or "") if q["scheduled"]][-3:]
     for p, t in zip(ready, times):
+        b = pick_board_for(p, recent)
+        recent.append(b)
+        p["board"] = b  # remembered so stats can be split per board
         print(json.dumps({"file": p["file"], "time": t, "media": RAW + p["file"], "pinTitle": p["title"][:100],
-                          "text": p["desc"][:500], "alt": p["alt"], "boardId": p["board"], "pinLink": p["link"]},
+                          "text": seo_text(p, b), "alt": p["alt"], "boardId": b, "pinLink": p["link"]},
                          ensure_ascii=False))
+    save(PINS, pins)
 
 
 def mark(a):
@@ -138,6 +224,8 @@ def mark(a):
     for p in pins:
         if p["file"] == a.file:
             p["status"] = "schemalagd"; p["metricool_id"] = str(a.id); p["scheduled"] = a.time
+            if a.board:
+                p["board"] = a.board
     save(PINS, pins); print("ok")
 
 
@@ -212,7 +300,7 @@ def variants(a):
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("cmd")
-    for f in ("slug", "art", "motif", "title", "sub", "desc", "alt", "url", "file", "id", "time", "metricool"):
+    for f in ("slug", "art", "motif", "title", "sub", "desc", "alt", "url", "file", "id", "time", "metricool", "board"):
         ap.add_argument("--" + f)
     ap.add_argument("--n", type=int, default=5)
     a = ap.parse_args()
