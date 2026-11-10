@@ -16,5 +16,19 @@
   "243124148573335924": "Christmas Wall Art Printables",
   "243124148573335925": "Cozy Christmas Home Decor"
  },
- "board_weight": {}
+ "board_weight": {},
+ "sales": [
+  {
+   "from": "2026-11-10",
+   "to": "2026-11-22",
+   "title": "25% Off",
+   "text": "25% OFF the whole shop – sale ends Nov 22."
+  },
+  {
+   "from": "2026-11-23",
+   "to": "2026-12-01",
+   "title": "Cyber Week 25% Off",
+   "text": "CYBER WEEK: 25% OFF the whole shop – ends Dec 1."
+  }
+ ]
 }

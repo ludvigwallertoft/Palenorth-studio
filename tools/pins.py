@@ -91,9 +91,28 @@ def hashtags(text, n=5):
     return out[:n]
 
 
-def seo_text(p, board=""):
-    """Keyword-rich description + 3-5 hashtags at the end (max 500 chars)."""
+def active_sale(when=None):
+    """strategy.json "sales": [{"from": "2026-11-10", "to": "2026-11-22", "text": "...", "title": "..."}]"""
+    d = (when or dt.datetime.now()).date().isoformat()
+    for s_ in strategy().get("sales", []):
+        if s_["from"] <= d <= s_["to"]:
+            return s_
+    return None
+
+
+def sale_title(title, when=None):
+    s_ = active_sale(when)
+    if s_ and len(title) + len(s_["title"]) + 3 <= 100:
+        return f"{title} | {s_['title']}"
+    return title[:100]
+
+
+def seo_text(p, board="", when=None):
+    """Keyword-rich description + 3-5 hashtags at the end (max 500 chars). Active sale line first."""
     desc = p["desc"].strip()
+    s_ = active_sale(when)
+    if s_:
+        desc = s_["text"] + " " + desc
     if "printable" not in desc.lower():
         desc += " Printable wall art."
     bname = strategy().get("boards", {}).get(board, "").lower()
@@ -213,8 +232,8 @@ def nxt(a):
         b = pick_board_for(p, recent)
         recent.append(b)
         p["board"] = b  # remembered so stats can be split per board
-        print(json.dumps({"file": p["file"], "time": t, "media": RAW + p["file"], "pinTitle": p["title"][:100],
-                          "text": seo_text(p, b), "alt": p["alt"], "boardId": b, "pinLink": p["link"]},
+        print(json.dumps({"file": p["file"], "time": t, "media": RAW + p["file"], "pinTitle": sale_title(p["title"], dt.datetime.fromisoformat(t)),
+                          "text": seo_text(p, b, dt.datetime.fromisoformat(t)), "alt": p["alt"], "boardId": b, "pinLink": p["link"]},
                          ensure_ascii=False))
     save(PINS, pins)
 
