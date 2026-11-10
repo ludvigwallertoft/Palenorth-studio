@@ -23,3 +23,6 @@ Pinterest är en sökmotor. Det är sökorden som gör att folk hittar pinsen, i
   Använd `boardId` och `text` från `next` oförändrade i Metricool. Skicka gärna `--board` till `mark`.
 - **Säsong**: julprodukter måste vara ute senast i mitten av november. Pinterest behöver 2–4 veckor
   innan en pin börjar synas i sök.
+
+## Ägarens regel: ingen text på bilderna (2026-11-10)
+Pins är rena, eleganta rumsbilder. Ingen titel eller undertext bakas in i bilden – sökorden står bara i pin-titeln och beskrivningen.

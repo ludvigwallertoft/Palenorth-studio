@@ -45,8 +45,9 @@ def pick_rooms(n, exclude=()):
     return rooms[:n]
 
 
+# Owner's rule (2026-11-10): pins are clean, elegant images with NO text on the picture.
+# Title and keywords go only in the pin title/description, never baked into the image.
 CAPTIONS = {
-    "standard": lambda t, s: (t, s),
     "notitle": lambda t, s: (None, None),
 }
 
