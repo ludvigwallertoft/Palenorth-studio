@@ -26,3 +26,12 @@ Pinterest är en sökmotor. Det är sökorden som gör att folk hittar pinsen, i
 
 ## Ägarens regel: ingen text på bilderna (2026-11-10)
 Pins är rena, eleganta rumsbilder. Ingen titel eller undertext bakas in i bilden – sökorden står bara i pin-titeln och beskrivningen.
+
+## Kvalitetskontroll av motiv (obligatoriskt, ägarens krav 2026-11-11)
+Innan en produkt publiceras eller pinnas: öppna varje motiv i full storlek och kontrollera att det är fysiskt logiskt.
+- Saker ligger PÅ det de ska ligga på (bullar på tallriken, kopp på fatet), inget svävar.
+- Det som hör till en dryck är I drycken (kanelstång, stjärnanis), inget löst strött runt omkring.
+- Inga konstiga linjer, glapp, dubbla konturer eller halvfärdiga skuggor.
+- Text krockar inte med bilden, motivet är tillräckligt stort i ramen.
+Hittar du fel: rätta och rendera om innan du går vidare. Hellre en produkt färre än en som ser fel ut.
+Glögg & Fika ritades om 2026-11-11 (källa: tools/art_glogg_fika.py).

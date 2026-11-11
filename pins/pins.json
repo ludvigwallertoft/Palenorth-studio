@@ -366,7 +366,7 @@
   "old_file": "20261110-a-quiet-christmas-botanicals-juniper-r04-standard.jpg"
  },
  {
-  "file": "20261110-b-glogg-and-fika-glogg-r04-notitle.jpg",
+  "file": "20261111-b-glogg-and-fika-glogg-r04-v2.jpg",
   "slug": "b-glogg-and-fika",
   "motif": "glogg",
   "room": "r04-8490175.jpg",
@@ -379,10 +379,11 @@
   "link": "https://www.etsy.com/listing/4613970567",
   "status": "schemalagd",
   "scheduled": "2026-11-12T08:41:00",
-  "metricool_id": "423093217"
+  "metricool_id": "423093217",
+  "replaced_file": "20261110-b-glogg-and-fika-glogg-r04-notitle.jpg"
  },
  {
-  "file": "20261110-b-glogg-and-fika-glogg-r09-clean.jpg",
+  "file": "20261111-b-glogg-and-fika-glogg-r09-v2.jpg",
   "slug": "b-glogg-and-fika",
   "motif": "glogg",
   "room": "r09-5978718.jpg",
@@ -396,10 +397,11 @@
   "status": "schemalagd",
   "scheduled": "2026-11-16T08:41:00",
   "metricool_id": "423204853",
-  "old_file": "20261110-b-glogg-and-fika-glogg-r09-standard.jpg"
+  "old_file": "20261110-b-glogg-and-fika-glogg-r09-standard.jpg",
+  "replaced_file": "20261110-b-glogg-and-fika-glogg-r09-clean.jpg"
  },
  {
-  "file": "20261110-b-glogg-and-fika-glogg-r08-notitle.jpg",
+  "file": "20261111-b-glogg-and-fika-glogg-r08-v2.jpg",
   "slug": "b-glogg-and-fika",
   "motif": "glogg",
   "room": "r08-12486417.jpg",
@@ -412,24 +414,26 @@
   "link": "https://www.etsy.com/listing/4613970567",
   "status": "schemalagd",
   "scheduled": "2026-11-14T08:41:00",
-  "metricool_id": "423093377"
+  "metricool_id": "423093377",
+  "replaced_file": "20261110-b-glogg-and-fika-glogg-r08-notitle.jpg"
  },
  {
-  "file": "20261110-b-glogg-and-fika-fika-r07-clean.jpg",
+  "file": "20261111-b-glogg-and-fika-fika-r07-v2.jpg",
   "slug": "b-glogg-and-fika",
   "motif": "fika",
   "room": "r07-12486418.jpg",
   "style": "black-frame-linen",
   "caption": "notitle",
   "title": "Scandinavian Christmas Kitchen Print – Fika First Presents Later",
-  "desc": "Fika first, presents later – a cosy scandinavian christmas decor print with a cardamom bun. A gentle funny christmas kitchen print and christmas wall art printable. Digital download, 5 print sizes, nothing shipped.",
-  "alt": "Scandinavian christmas kitchen print saying Fika first presents later with a cardamom bun",
+  "desc": "Fika first, presents later – a cosy scandinavian christmas decor print with cinnamon buns. A gentle funny christmas kitchen print and christmas wall art printable. Digital download, 5 print sizes, nothing shipped.",
+  "alt": "Scandinavian christmas kitchen print saying Fika first presents later with cinnamon buns",
   "board": "243124148573326212",
   "link": "https://www.etsy.com/listing/4613970567",
   "status": "schemalagd",
   "scheduled": "2026-11-15T08:41:00",
   "metricool_id": "423204707",
-  "old_file": "20261110-b-glogg-and-fika-fika-r07-standard.jpg"
+  "old_file": "20261110-b-glogg-and-fika-fika-r07-standard.jpg",
+  "replaced_file": "20261110-b-glogg-and-fika-fika-r07-clean.jpg"
  },
  {
   "file": "20261110-b-glogg-and-fika-fika-r02-clean.jpg",
@@ -439,8 +443,8 @@
   "style": "light-oak",
   "caption": "notitle",
   "title": "Scandinavian Christmas Kitchen Print – Fika First Presents Later",
-  "desc": "Fika first, presents later – a cosy scandinavian christmas decor print with a cardamom bun. A gentle funny christmas kitchen print and christmas wall art printable. Digital download, 5 print sizes, nothing shipped.",
-  "alt": "Scandinavian christmas kitchen print saying Fika first presents later with a cardamom bun",
+  "desc": "Fika first, presents later – a cosy scandinavian christmas decor print with cinnamon buns. A gentle funny christmas kitchen print and christmas wall art printable. Digital download, 5 print sizes, nothing shipped.",
+  "alt": "Scandinavian christmas kitchen print saying Fika first presents later with cinnamon buns",
   "board": "243124148573326212",
   "link": "https://www.etsy.com/listing/4613970567",
   "status": "schemalagd",
@@ -449,21 +453,22 @@
   "old_file": "20261110-b-glogg-and-fika-fika-r02-standard.jpg"
  },
  {
-  "file": "20261110-b-glogg-and-fika-fika-r04-clean.jpg",
+  "file": "20261111-b-glogg-and-fika-fika-r04-v2.jpg",
   "slug": "b-glogg-and-fika",
   "motif": "fika",
   "room": "r04-8490175.jpg",
   "style": "black-frame-floor",
   "caption": "notitle",
   "title": "Scandinavian Christmas Kitchen Print – Fika First Presents Later",
-  "desc": "Fika first, presents later – a cosy scandinavian christmas decor print with a cardamom bun. A gentle funny christmas kitchen print and christmas wall art printable. Digital download, 5 print sizes, nothing shipped.",
-  "alt": "Scandinavian christmas kitchen print saying Fika first presents later with a cardamom bun",
+  "desc": "Fika first, presents later – a cosy scandinavian christmas decor print with cinnamon buns. A gentle funny christmas kitchen print and christmas wall art printable. Digital download, 5 print sizes, nothing shipped.",
+  "alt": "Scandinavian christmas kitchen print saying Fika first presents later with cinnamon buns",
   "board": "243124148573335924",
   "link": "https://www.etsy.com/listing/4613970567",
   "status": "schemalagd",
   "scheduled": "2026-11-13T08:41:00",
   "metricool_id": "423204395",
-  "old_file": "20261110-b-glogg-and-fika-fika-r04-standard.jpg"
+  "old_file": "20261110-b-glogg-and-fika-fika-r04-standard.jpg",
+  "replaced_file": "20261110-b-glogg-and-fika-fika-r04-clean.jpg"
  },
  {
   "file": "20261110-a-nordic-winter-calm-peaks-r07-notitle.jpg",

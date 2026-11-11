@@ -185,6 +185,37 @@ def cmd_publish(a):
     print(json.dumps({"listing_id": lid, "url": f"https://www.etsy.com/listing/{lid}", "state": state, "slug": pkg.get("slug")}))
 
 
+def cmd_replace_media(a):
+    """Swap images + digital files (and title/description/tags) of an existing listing, from listing.json.
+    New images are uploaded before old ones are deleted, files are swapped one by one (Etsy max 5)."""
+    pkg = json.load(open(a.package))
+    sid = shop_id(); lid = pkg["listing_id"]
+    old_imgs = ok(call("GET", f"/listings/{lid}/images"), "list images").get("results", [])
+    for i, img in enumerate(pkg.get("images", [])[:10], 1):
+        with open(img, "rb") as f:
+            ok(call("POST", f"/shops/{sid}/listings/{lid}/images", files={"image": f}, data={"rank": i}), f"image {img}")
+    for im in old_imgs:
+        r = call("DELETE", f"/shops/{sid}/listings/{lid}/images/{im['listing_image_id']}")
+        if r.status_code >= 300: print("warn: delete image", r.status_code, r.text[:200])
+    old_files = ok(call("GET", f"/shops/{sid}/listings/{lid}/files"), "list files").get("results", [])
+    news = pkg.get("files", [])[:5]
+    for i, fp in enumerate(news, 1):
+        if old_files:
+            of = old_files.pop(0)
+            ok(call("DELETE", f"/shops/{sid}/listings/{lid}/files/{of['listing_file_id']}"), "delete file")
+        with open(fp, "rb") as f:
+            ok(call("POST", f"/shops/{sid}/listings/{lid}/files", files={"file": f},
+                    data={"name": os.path.basename(fp), "rank": i}), f"file {fp}")
+    for of in old_files:
+        call("DELETE", f"/shops/{sid}/listings/{lid}/files/{of['listing_file_id']}")
+    tags = [t[:20] for t in pkg.get("tags", [])][:13]
+    data = [("title", pkg["title"][:140]), ("description", pkg["description"])] + [("tags[]", t) for t in tags]
+    ok(call("PATCH", f"/shops/{sid}/listings/{lid}", data=data), "update text")
+    imgs = ok(call("GET", f"/listings/{lid}/images"), "list images").get("results", [])
+    fls = ok(call("GET", f"/shops/{sid}/listings/{lid}/files"), "list files").get("results", [])
+    print(json.dumps({"listing_id": lid, "images": len(imgs), "files": [x.get("filename") for x in fls]}))
+
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("cmd")
@@ -192,4 +223,4 @@ if __name__ == "__main__":
     ap.add_argument("--package"); ap.add_argument("--draft", action="store_true")
     a = ap.parse_args()
     {"auth-url": cmd_auth_url, "exchange": cmd_exchange, "ping": cmd_ping, "taxonomy": cmd_taxonomy,
-     "publish": cmd_publish}[a.cmd.replace("_", "-")](a)
+     "publish": cmd_publish, "replace-media": cmd_replace_media}[a.cmd.replace("_", "-")](a)
