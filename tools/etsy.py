@@ -176,7 +176,7 @@ def cmd_publish(a):
             ok(call("POST", f"/shops/{sid}/listings/{lid}/images", files={"image": f}, data={"rank": i}), f"image {img}")
     for i, fp in enumerate(pkg.get("files", [])[:5], 1):
         with open(fp, "rb") as f:
-            ok(call("POST", f"/shops/{sid}/listings/{lid}/files", files={"file": f},
+            ok(call("POST", f"/shops/{sid}/listings/{lid}/files", files={"file": (os.path.basename(fp), f, __import__("mimetypes").guess_type(fp)[0] or "application/octet-stream")},
                     data={"name": os.path.basename(fp), "rank": i}), f"file {fp}")
     state = "draft"
     if not a.draft:
@@ -204,7 +204,7 @@ def cmd_replace_media(a):
             of = old_files.pop(0)
             ok(call("DELETE", f"/shops/{sid}/listings/{lid}/files/{of['listing_file_id']}"), "delete file")
         with open(fp, "rb") as f:
-            ok(call("POST", f"/shops/{sid}/listings/{lid}/files", files={"file": f},
+            ok(call("POST", f"/shops/{sid}/listings/{lid}/files", files={"file": (os.path.basename(fp), f, __import__("mimetypes").guess_type(fp)[0] or "application/octet-stream")},
                     data={"name": os.path.basename(fp), "rank": i}), f"file {fp}")
     for of in old_files:
         call("DELETE", f"/shops/{sid}/listings/{lid}/files/{of['listing_file_id']}")
