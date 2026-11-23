@@ -1,11 +1,18 @@
 {
- "room_weight": {},
+ "room_weight": {
+  "r07-12486418.jpg": 2,
+  "r04-8490175.jpg": 1,
+  "r02-8534228.jpg": 1
+ },
  "caption_weight": {
   "notitle": 1
  },
- "more_of": [],
+ "more_of": [
+  "winter-line-art-set",
+  "b-glogg-and-fika"
+ ],
  "stop": [],
- "notes": "Startläge 2026-11-09: alla rum och båda bildtexterna testas lika. Nora uppdaterar varje måndag från Metricool-statistiken. 2026-11-10: SEO-läge: sökord i titel/beskrivning/alt + 3-5 hashtaggar sist. Jultavlor används 1 nov-24 dec, vintertavla jan-mars. 2026-11-10: Ägarens regel: ingen text på pin-bilderna, bara rena bilder (bildtexten \"standard\" är borttagen). 2026-11-16 (v47): för lite data än – inga pins är 10+ dagar gamla (äldsta 9 nov), vikter oförändrade. Tidig signal: vinter-line art (birch/cabin/spruce, winter-line-art-set 13 visn/pin) leder över jul-kök och botaniska (3–4 visn/pin), men pinsen är äldre så jämförelsen är osäker.",
+ "notes": "Startläge 2026-11-09: alla rum och båda bildtexterna testas lika. Nora uppdaterar varje måndag från Metricool-statistiken. 2026-11-10: SEO-läge: sökord i titel/beskrivning/alt + 3-5 hashtaggar sist. Jultavlor används 1 nov-24 dec, vintertavla jan-mars. 2026-11-10: Ägarens regel: ingen text på pin-bilderna, bara rena bilder (bildtexten \"standard\" är borttagen). 2026-11-16 (v47): för lite data än – inga pins är 10+ dagar gamla (äldsta 9 nov), vikter oförändrade. Tidig signal: vinter-line art (birch/cabin/spruce, winter-line-art-set 13 visn/pin) leder över jul-kök och botaniska (3–4 visn/pin), men pinsen är äldre så jämförelsen är osäker. 2026-11-23 (v48): regler på 12 pins 10+ dagar (9–13 nov), snitt 17 visn/pin. Rum: r07 bäst (25/pin) -> 2; r04 (6 pins, 11/pin = 63 % av snittet) får behålla 1. Tavla: Small Bedroom Inspiration bäst (33, bara 1 pin) -> 2; ingen tavla har 4+ pins. Bildtext: 'standard' hade fler visningar (28/pin) men är borttagen av ägaren, notitle kvar. more_of: winter-line-art-set (22 visn/pin, regelvinnare) och b-glogg-and-fika (bäst vid lika många dagar live: 9 visn/pin mot 5 för line art bland pins 11–15 nov, men alltid i morgonslotten). Ingen stop (ingen produkt med 8+ pins som är 21+ dagar). OBS: alla pins 16–23 nov stoppades av Metricool ('account limit') – inga nya pins live sedan 15 nov.",
  "boards": {
   "243124148573324395": "Printable Wall Art",
   "243124148573326207": "Scandinavian Living Room",
@@ -15,7 +22,9 @@
   "243124148573335924": "Christmas Wall Art Printables",
   "243124148573335925": "Cozy Christmas Home Decor"
  },
- "board_weight": {},
+ "board_weight": {
+  "243124148573326211": 2
+ },
  "sales": [
   {
    "from": "2026-11-10",
